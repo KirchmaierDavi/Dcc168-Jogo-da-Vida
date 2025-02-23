@@ -19,9 +19,22 @@ public class JogoDaVidaTest {
         tabuleiro[1][1] = 1;
         tabuleiro[1][2] = 1;
         tabuleiro[2][1] = 1;
-        
+
         jogo.setTabuleiro(tabuleiro);
         assertEquals(2, jogo.contarVizinhosVivos(1, 1));
+    }
+
+    @Test
+    public void testContarVizinhosVivosNasBordas() {
+        int[][] tabuleiro = new int[6][6];
+        tabuleiro[0][0] = 1;
+        tabuleiro[0][1] = 1;
+        tabuleiro[1][0] = 1;
+        tabuleiro[1][1] = 1;
+
+        jogo.setTabuleiro(tabuleiro);
+        assertEquals(3, jogo.contarVizinhosVivos(0, 0));
+        assertEquals(3, jogo.contarVizinhosVivos(0, 1));
     }
 
     @Test
@@ -30,15 +43,88 @@ public class JogoDaVidaTest {
         tabuleiro[1][1] = 1;
         tabuleiro[1][2] = 1;
         tabuleiro[2][1] = 1;
-        
+
         jogo.setTabuleiro(tabuleiro);
         jogo.proximaGeracao();
-        
+
         int[][] resultado = jogo.getTabuleiro();
         assertEquals(1, resultado[1][1]);
         assertEquals(1, resultado[1][2]);
         assertEquals(1, resultado[2][1]);
         assertEquals(1, resultado[2][2]);
+    }
+
+    @Test
+    public void testProximaGeracaoCompleta() {
+        int[][] tabuleiro = new int[6][6];
+        tabuleiro[2][1] = 1;
+        tabuleiro[2][2] = 1;
+        tabuleiro[2][3] = 1;
+
+        jogo.setTabuleiro(tabuleiro);
+        jogo.proximaGeracao();
+
+        int[][] resultado = jogo.getTabuleiro();
+        assertEquals(1, resultado[1][2]);
+        assertEquals(1, resultado[2][2]);
+        assertEquals(1, resultado[3][2]);
+    }
+
+    @Test
+    public void testAplicarRegrasTodasCondicoes() {
+        for (int vizinhos = 0; vizinhos <= 8; vizinhos++) {
+            int resultado = jogo.aplicarRegras(1, vizinhos);
+            if (vizinhos == 2 || vizinhos == 3) {
+                assertEquals(1, resultado);
+            } else {
+                assertEquals(0, resultado);
+            }
+
+            resultado = jogo.aplicarRegras(0, vizinhos);
+            assertEquals(vizinhos == 3 ? 1 : 0, resultado);
+        }
+    }
+
+    @Test
+    public void testTabuleiroModificacoes() {
+        int[][] tabuleiro = new int[6][6];
+        tabuleiro[1][1] = 1;
+        tabuleiro[1][2] = 1;
+        tabuleiro[2][1] = 1;
+        tabuleiro[2][2] = 1;
+
+        jogo.setTabuleiro(tabuleiro);
+
+        for (int i = 0; i < 3; i++) {
+            jogo.proximaGeracao();
+            int[][] atual = jogo.getTabuleiro();
+            assertNotNull(atual);
+            assertEquals(6, atual.length);
+            assertEquals(6, atual[0].length);
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testContarVizinhosVivosLimitesSuperior() {
+        jogo.contarVizinhosVivos(6, 6);
+    }
+
+    @Test
+    public void testPadroesEstaveis() {
+        int[][] tabuleiro = new int[6][6];
+        tabuleiro[1][1] = 1;
+        tabuleiro[1][2] = 1;
+        tabuleiro[2][1] = 1;
+        tabuleiro[2][2] = 1;
+
+        jogo.setTabuleiro(tabuleiro);
+        int[][] antes = jogo.getTabuleiro().clone();
+        jogo.proximaGeracao();
+        int[][] depois = jogo.getTabuleiro();
+
+        for (int i = 0; i < 6; i++) {
+            assertArrayEquals(antes[i], depois[i]);
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -55,26 +141,26 @@ public class JogoDaVidaTest {
     public void testAplicarRegras() {
 
         assertEquals(0, jogo.aplicarRegras(1, 1));
-        
+
         assertEquals(1, jogo.aplicarRegras(1, 2));
         assertEquals(1, jogo.aplicarRegras(1, 3));
-        
+
         assertEquals(0, jogo.aplicarRegras(1, 4));
-        
+
         assertEquals(1, jogo.aplicarRegras(0, 3));
-        
+
         assertEquals(0, jogo.aplicarRegras(0, 2));
     }
 
     @Test
     public void testMortePorSolidao() {
         int[][] tabuleiro = {
-            {1, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0}
+                { 1, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 }
         };
         jogo.setTabuleiro(tabuleiro);
         jogo.proximaGeracao();
@@ -84,12 +170,12 @@ public class JogoDaVidaTest {
     @Test
     public void testMortePorSuperpopulacao() {
         int[][] tabuleiro = {
-            {1, 1, 1, 0, 0, 0},
-            {1, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0}
+                { 1, 1, 1, 0, 0, 0 },
+                { 1, 1, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 }
         };
         jogo.setTabuleiro(tabuleiro);
         jogo.proximaGeracao();
@@ -99,12 +185,12 @@ public class JogoDaVidaTest {
     @Test
     public void testNascimento() {
         int[][] tabuleiro = {
-            {1, 1, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0}
+                { 1, 1, 0, 0, 0, 0 },
+                { 1, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 }
         };
         jogo.setTabuleiro(tabuleiro);
         jogo.proximaGeracao();
@@ -114,12 +200,12 @@ public class JogoDaVidaTest {
     @Test
     public void testSobrevivencia() {
         int[][] tabuleiro = {
-            {1, 1, 0, 0, 0, 0},
-            {1, 1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0}
+                { 1, 1, 0, 0, 0, 0 },
+                { 1, 1, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 }
         };
         jogo.setTabuleiro(tabuleiro);
         jogo.proximaGeracao();
@@ -129,11 +215,11 @@ public class JogoDaVidaTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetTabuleiroInvalido() {
         int[][] tabuleiroInvalido = {
-            {1, 1, 0, 0, 0},
-            {1, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0}
+                { 1, 1, 0, 0, 0 },
+                { 1, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0 }
         };
         jogo.setTabuleiro(tabuleiroInvalido);
     }
@@ -141,12 +227,12 @@ public class JogoDaVidaTest {
     @Test
     public void testSetTabuleiroValido() {
         int[][] tabuleiroValido = {
-            {1, 1, 0, 0, 0, 0},
-            {1, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0}
+                { 1, 1, 0, 0, 0, 0 },
+                { 1, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 },
+                { 0, 0, 0, 0, 0, 0 }
         };
         jogo.setTabuleiro(tabuleiroValido);
         assertArrayEquals(tabuleiroValido, jogo.getTabuleiro());
