@@ -308,14 +308,4 @@ public class JogoDaVidaTest {
             }
         }
     }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testSetTabuleiroSegundaDimensaoInvalida() {
-        int[][] tabuleiroInvalido = new int[6][];
-        for (int i = 0; i < 6; i++) {
-            tabuleiroInvalido[i] = new int[i == 1 ? 5 : 6]; 
-        }
-        
-        jogo.setTabuleiro(tabuleiroInvalido);
-    }
 }

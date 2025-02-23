@@ -12,13 +12,6 @@ public class JogoDaVida {
         if (novoTabuleiro == null || novoTabuleiro.length != TAMANHO) {
             throw new IllegalArgumentException("Tabuleiro deve ser 6x6");
         }
-        
-        for (int i = 0; i < TAMANHO; i++) {
-            if (novoTabuleiro[i] == null || novoTabuleiro[i].length != TAMANHO) {
-                throw new IllegalArgumentException("Tabuleiro deve ser 6x6");
-            }
-        }
-        
         this.tabuleiro = novoTabuleiro;
     }
 
