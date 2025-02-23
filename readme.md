@@ -1,12 +1,22 @@
-Aqui está sendo efetuado o trabalho da disciplina DCC168 - Testes de Software
+# Trabalho de DCC168 - Testes de Software
 
-Fase atual - PARTE 2
+## Parte 2
 
-Alunos:
-    - Davi Kirchmaier 
-    - Mateus Alves
+### Desenvolvedores
+- Davi Kirchmaier 
+- Mateus Alves
 
-Para Rodar o relatório de cobertura utilize os comandos:
-    - mvn clean test jacoco:report
-    - cd /target/site/jacoco/index.html
-    - start index.html
+### Gerando Relatório de Cobertura de Testes
+
+Execute os seguintes comandos no terminal:
+
+```bash
+# Gera o relatório
+mvn clean test jacoco:report
+
+# Navega até o diretório do relatório
+cd target/site/jacoco
+
+# Abre o relatório (Windows)
+start index.html
+```
