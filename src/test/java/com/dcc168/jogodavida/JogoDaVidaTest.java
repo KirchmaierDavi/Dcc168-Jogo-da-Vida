@@ -139,16 +139,11 @@ public class JogoDaVidaTest {
 
     @Test
     public void testAplicarRegras() {
-
         assertEquals(0, jogo.aplicarRegras(1, 1));
-
         assertEquals(1, jogo.aplicarRegras(1, 2));
         assertEquals(1, jogo.aplicarRegras(1, 3));
-
         assertEquals(0, jogo.aplicarRegras(1, 4));
-
         assertEquals(1, jogo.aplicarRegras(0, 3));
-
         assertEquals(0, jogo.aplicarRegras(0, 2));
     }
 
@@ -236,5 +231,91 @@ public class JogoDaVidaTest {
         };
         jogo.setTabuleiro(tabuleiroValido);
         assertArrayEquals(tabuleiroValido, jogo.getTabuleiro());
+    }
+
+    @Test
+    public void testContarVizinhosVivosTodasBordas() {
+        int[][] tabuleiro = new int[6][6];
+
+        tabuleiro[0][0] = 1;
+        tabuleiro[0][5] = 1;
+        tabuleiro[5][0] = 1;
+        tabuleiro[5][5] = 1;
+
+        jogo.setTabuleiro(tabuleiro);
+        assertEquals(0, jogo.contarVizinhosVivos(0, 0));
+        assertEquals(0, jogo.contarVizinhosVivos(0, 5));
+        assertEquals(0, jogo.contarVizinhosVivos(5, 0));
+        assertEquals(0, jogo.contarVizinhosVivos(5, 5));
+    }
+
+    @Test
+    public void testPadraoOscilador() {
+        int[][] tabuleiro = new int[6][6];
+        tabuleiro[2][1] = 1;
+        tabuleiro[2][2] = 1;
+        tabuleiro[2][3] = 1;
+
+        jogo.setTabuleiro(tabuleiro);
+        jogo.proximaGeracao();
+
+        int[][] primeiraGeracao = jogo.getTabuleiro();
+        assertEquals(1, primeiraGeracao[1][2]);
+        assertEquals(1, primeiraGeracao[2][2]);
+        assertEquals(1, primeiraGeracao[3][2]);
+
+        jogo.proximaGeracao();
+
+        int[][] segundaGeracao = jogo.getTabuleiro();
+        assertEquals(1, segundaGeracao[2][1]);
+        assertEquals(1, segundaGeracao[2][2]);
+        assertEquals(1, segundaGeracao[2][3]);
+    }
+
+    @Test
+    public void testCelulasMortasVizinhas() {
+        int[][] tabuleiro = new int[6][6];
+        tabuleiro[2][2] = 1;
+
+        jogo.setTabuleiro(tabuleiro);
+        assertEquals(0, jogo.contarVizinhosVivos(2, 2));
+    }
+
+    @Test
+    public void testLimitesExtremosDoTabuleiro() {
+        for (int i = -1; i <= 6; i++) {
+            for (int j = -1; j <= 6; j++) {
+                if (i < 0 || i >= 6 || j < 0 || j >= 6) {
+                    try {
+                        jogo.contarVizinhosVivos(i, j);
+                        fail("Deveria lançar IllegalArgumentException para posição (" + i + "," + j + ")");
+                    } catch (IllegalArgumentException e) {
+                    }
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testTabuleiroVazio() {
+        int[][] tabuleiro = new int[6][6];
+        jogo.setTabuleiro(tabuleiro);
+        jogo.proximaGeracao();
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 6; j++) {
+                assertEquals(0, jogo.getTabuleiro()[i][j]);
+            }
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetTabuleiroSegundaDimensaoInvalida() {
+        int[][] tabuleiroInvalido = new int[6][];
+        for (int i = 0; i < 6; i++) {
+            tabuleiroInvalido[i] = new int[i == 1 ? 5 : 6]; 
+        }
+        
+        jogo.setTabuleiro(tabuleiroInvalido);
     }
 }

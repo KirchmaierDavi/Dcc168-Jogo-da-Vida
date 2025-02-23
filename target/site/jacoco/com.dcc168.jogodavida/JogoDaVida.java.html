@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JogoDaVida.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">jogo-da-vida</a> &gt; <a href="index.source.html" class="el_package">com.dcc168.jogodavida</a> &gt; <span class="el_source">JogoDaVida.java</span></div><h1>JogoDaVida.java</h1><pre class="source lang-java linenums">package com.dcc168.jogodavida;
+
+public class JogoDaVida {
+<span class="fc" id="L4">    private final int TAMANHO = 6;</span>
+    private int[][] tabuleiro;
+
+<span class="fc" id="L7">    public JogoDaVida() {</span>
+<span class="fc" id="L8">        tabuleiro = new int[TAMANHO][TAMANHO];</span>
+<span class="fc" id="L9">    }</span>
+
+    public void setTabuleiro(int[][] novoTabuleiro) {
+<span class="pc bpc" id="L12" title="1 of 4 branches missed.">        if (novoTabuleiro.length != TAMANHO || novoTabuleiro[0].length != TAMANHO) {</span>
+<span class="fc" id="L13">            throw new IllegalArgumentException(&quot;Tabuleiro deve ser 6x6&quot;);</span>
+        }
+<span class="fc" id="L15">        this.tabuleiro = novoTabuleiro;</span>
+<span class="fc" id="L16">    }</span>
+
+    public int[][] getTabuleiro() {
+<span class="fc" id="L19">        return tabuleiro;</span>
+    }
+
+    public int contarVizinhosVivos(int linha, int coluna) {
+<span class="fc bfc" id="L23" title="All 8 branches covered.">        if (linha &lt; 0 || linha &gt;= TAMANHO || coluna &lt; 0 || coluna &gt;= TAMANHO) {</span>
+<span class="fc" id="L24">            throw new IllegalArgumentException(&quot;Posição inválida&quot;);</span>
+        }
+
+<span class="fc" id="L27">        int vizinhosVivos = 0;</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        for (int i = -1; i &lt;= 1; i++) {</span>
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            for (int j = -1; j &lt;= 1; j++) {</span>
+<span class="fc bfc" id="L30" title="All 4 branches covered.">                if (i == 0 &amp;&amp; j == 0) continue;</span>
+               
+<span class="fc" id="L32">                int novaLinha = linha + i;</span>
+<span class="fc" id="L33">                int novaColuna = coluna + j;</span>
+               
+<span class="fc bfc" id="L35" title="All 8 branches covered.">                if (novaLinha &gt;= 0 &amp;&amp; novaLinha &lt; TAMANHO &amp;&amp;</span>
+                    novaColuna &gt;= 0 &amp;&amp; novaColuna &lt; TAMANHO) {
+<span class="fc" id="L37">                    vizinhosVivos += tabuleiro[novaLinha][novaColuna];</span>
+                }
+            }
+        }
+<span class="fc" id="L41">        return vizinhosVivos;</span>
+    }
+
+    public void proximaGeracao() {
+<span class="fc" id="L45">        int[][] novoTabuleiro = new int[TAMANHO][TAMANHO];</span>
+       
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (int i = 0; i &lt; TAMANHO; i++) {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            for (int j = 0; j &lt; TAMANHO; j++) {</span>
+<span class="fc" id="L49">                int vizinhosVivos = contarVizinhosVivos(i, j);</span>
+<span class="fc" id="L50">                novoTabuleiro[i][j] = aplicarRegras(tabuleiro[i][j], vizinhosVivos);</span>
+            }
+        }
+       
+<span class="fc" id="L54">        tabuleiro = novoTabuleiro;</span>
+<span class="fc" id="L55">    }</span>
+
+    public int aplicarRegras(int estadoAtual, int vizinhosVivos) {
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (estadoAtual == 1) {</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (vizinhosVivos &lt; 2) return 0; </span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            if (vizinhosVivos &gt; 3) return 0; </span>
+<span class="fc" id="L61">            return 1; </span>
+        } else {
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            if (vizinhosVivos == 3) return 1; </span>
+<span class="fc" id="L64">            return 0; </span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

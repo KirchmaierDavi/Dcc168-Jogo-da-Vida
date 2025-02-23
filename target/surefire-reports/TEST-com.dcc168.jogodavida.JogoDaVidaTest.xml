@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.dcc168.jogodavida.JogoDaVidaTest" time="0.052" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.dcc168.jogodavida.JogoDaVidaTest" time="0.077" tests="22" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="23"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="BR"/>
     <property name="sun.boot.library.path" value="C:\Users\Davi\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\latest\bin"/>
-    <property name="sun.java.command" value="C:\Users\Davi\AppData\Local\Temp\surefire5547154120898047253\surefirebooter-20250223152951723_3.jar C:\Users\Davi\AppData\Local\Temp\surefire5547154120898047253 2025-02-23T15-29-51_603-jvmRun1 surefire-20250223152951723_1tmp surefire_0-20250223152951723_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\Davi\AppData\Local\Temp\surefire11560412306572161458\surefirebooter-20250223160303599_3.jar C:\Users\Davi\AppData\Local\Temp\surefire11560412306572161458 2025-02-23T16-03-03_496-jvmRun1 surefire-20250223160303599_1tmp surefire_0-20250223160303599_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\Davi\Documents\TestesDcc168\Dcc168-Jogo-da-Vida\target\test-classes;C:\Users\Davi\Documents\TestesDcc168\Dcc168-Jogo-da-Vida\target\classes;C:\Users\Davi\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\Davi\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\Davi\AppData\Local\Temp\surefire5547154120898047253\surefirebooter-20250223152951723_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\Davi\AppData\Local\Temp\surefire11560412306572161458\surefirebooter-20250223160303599_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="23.0.2+7"/>
@@ -59,15 +59,26 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="67.0"/>
   </properties>
-  <testcase name="testSobrevivencia" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.003"/>
+  <testcase name="testPadroesEstaveis" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.007"/>
+  <testcase name="testSobrevivencia" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testCelulasMortasVizinhas" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
   <testcase name="testSetTabuleiroValido" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
   <testcase name="testMortePorSuperpopulacao" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
   <testcase name="testNascimento" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testTabuleiroModificacoes" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testLimitesExtremosDoTabuleiro" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testContarVizinhosVivosNasBordas" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testTabuleiroVazio" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testContarVizinhosVivosTodasBordas" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
   <testcase name="testProximaGeracao" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
   <testcase name="testContarVizinhosVivos" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testContarVizinhosVivosLimitesSuperior" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.001"/>
   <testcase name="testAplicarRegras" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
   <testcase name="testSetTabuleiroTamanhoInvalido" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testProximaGeracaoCompleta" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.001"/>
   <testcase name="testContarVizinhosVivosForaDoLimite" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testAplicarRegrasTodasCondicoes" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
+  <testcase name="testPadraoOscilador" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.001"/>
   <testcase name="testMortePorSolidao" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
   <testcase name="testSetTabuleiroInvalido" classname="com.dcc168.jogodavida.JogoDaVidaTest" time="0.0"/>
 </testsuite>

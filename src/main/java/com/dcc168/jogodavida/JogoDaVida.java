@@ -9,9 +9,16 @@ public class JogoDaVida {
     }
 
     public void setTabuleiro(int[][] novoTabuleiro) {
-        if (novoTabuleiro.length != TAMANHO || novoTabuleiro[0].length != TAMANHO) {
+        if (novoTabuleiro == null || novoTabuleiro.length != TAMANHO) {
             throw new IllegalArgumentException("Tabuleiro deve ser 6x6");
         }
+        
+        for (int i = 0; i < TAMANHO; i++) {
+            if (novoTabuleiro[i] == null || novoTabuleiro[i].length != TAMANHO) {
+                throw new IllegalArgumentException("Tabuleiro deve ser 6x6");
+            }
+        }
+        
         this.tabuleiro = novoTabuleiro;
     }
 
