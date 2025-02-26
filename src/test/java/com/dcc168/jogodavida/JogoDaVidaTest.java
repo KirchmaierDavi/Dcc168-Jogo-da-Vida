@@ -308,4 +308,31 @@ public class JogoDaVidaTest {
             }
         }
     }
+
+    @Test
+public void testOscilador() {
+    int[][] tabuleiro = new int[6][6];
+
+    tabuleiro[2][1] = 1;
+    tabuleiro[2][2] = 1;
+    tabuleiro[2][3] = 1;
+    
+    jogo.setTabuleiro(tabuleiro);
+    
+    jogo.proximaGeracao();
+    int[][] primeiraGeracao = jogo.getTabuleiro();
+    assertEquals(1, primeiraGeracao[1][2]); 
+    assertEquals(1, primeiraGeracao[2][2]); 
+    assertEquals(1, primeiraGeracao[3][2]); 
+    assertEquals(0, primeiraGeracao[2][1]);
+    assertEquals(0, primeiraGeracao[2][3]); 
+    
+    jogo.proximaGeracao();
+    int[][] segundaGeracao = jogo.getTabuleiro();
+    assertEquals(1, segundaGeracao[2][1]); 
+    assertEquals(1, segundaGeracao[2][2]); 
+    assertEquals(1, segundaGeracao[2][3]); 
+    assertEquals(0, segundaGeracao[1][2]); 
+    assertEquals(0, segundaGeracao[3][2]); 
+}
 }
